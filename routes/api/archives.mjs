@@ -9,5 +9,6 @@ const router = express.Router();
 router.get("/", ctrl.getAllSongs);
 router.post("/", isEmptyBody, validateBody(archiveAdd), ctrl.addSong);
 router.post("/bulk", isEmptyBody, ctrl.addSongs);
+router.get("/filter", ctrl.getFilteredSongs);
 
 export default router;

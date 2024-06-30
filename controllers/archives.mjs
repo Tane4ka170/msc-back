@@ -39,8 +39,20 @@ const addSongs = async (req, res) => {
   }
 };
 
+const getFilteredSongs = async (req, res) => {
+  const { start } = req.query;
+  const regex = new RegExp(`^${start}`, "i"); // 'i' for case-insensitive matching
+  try {
+    const songs = await Archive.find({ artist: regex });
+    res.json(songs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export default {
   getAllSongs: ctrlWrapper(getAllSongs),
   addSong: ctrlWrapper(addSong),
   addSongs: ctrlWrapper(addSongs),
+  getFilteredSongs: ctrlWrapper(getFilteredSongs),
 };
